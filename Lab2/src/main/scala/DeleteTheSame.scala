@@ -1,11 +1,10 @@
 object DeleteTheSame {
-  def deleteSame(map: Map[Int, Int]): Map[Int,Int] =
-    removeRepeting(map).toMap
+  def deleteSame(map: Map[Int, Int]): Map[Int,Int] = {
+    remove(map.filter(f => f._2 != map.head._2), map.head)
+  }
 
-  def removeRepeting(map: Map[Int, Int]): List[(Int, Int)] = {
-    map.toList match {
-      case Nil => Nil
-      case _ => map.head :: removeRepeting(map.filter((f: (Int, Int)) => f._2 != map.head._2))
-    }
+  def remove(map: Map[Int, Int], value:(Int,Int)): Map[Int, Int] = {
+    if(map.isEmpty) map + (value._1 -> value._2)
+    else remove(map.filter(f => f._2 != map.head._2), map.head) + value
   }
 }
